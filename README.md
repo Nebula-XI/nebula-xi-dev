@@ -40,9 +40,3 @@ CMake 3.21, Ninja 1.10.2, GCC 10.3
 `ctest --preset linux-x64-release`
 
 `ctest --preset linux-x64-debug`
-
-## All
-
-### Linux
-
-`./make.sh config build test`
