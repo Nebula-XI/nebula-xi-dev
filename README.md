@@ -1,4 +1,4 @@
-# Hardware Abstraction Layer (HAL)
+# Units Device Classes (UDC)
 
 [![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/mit-license.php)
 [![CMake](https://github.com/Nebula-XI/nebula-xi-dev/actions/workflows/cmake.yml/badge.svg)](https://github.com/Nebula-XI/nebula-xi-dev/actions/workflows/cmake.yml)
