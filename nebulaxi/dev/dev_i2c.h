@@ -26,7 +26,7 @@ SOFTWARE.
 
 #pragma once
 
-#include "dev_base.h"
+#include "nebulaxi/dev/dev_base.h"
 
 namespace nebulaxi {
 
@@ -34,15 +34,16 @@ using i2c_address = uint16_t;
 using i2c_data = std::vector<uint8_t>;
 using i2c_segment = uint32_t;
 
-enum class i2c_addressing { _7bit,
-    _10bit };
+enum class i2c_addressing {
+    _7bit,
+    _10bit
+};
 
 struct dev_i2c_interface : dev_interface<dev_i2c_interface> {
     virtual ~dev_i2c_interface() noexcept = default;
 };
 
-struct dev_axi_i2c_interface
-    : dev_axi_interface<dev_axi_i2c_interface, dev_i2c_interface> {
+struct dev_axi_i2c_interface : dev_axi_interface<dev_axi_i2c_interface, dev_i2c_interface> {
     virtual void configure(i2c_address, double, i2c_addressing) noexcept = 0;
     virtual void set_address(i2c_address) noexcept = 0;
     virtual i2c_address get_address() const noexcept = 0;
@@ -58,17 +59,14 @@ namespace detail {
     class dev_i2c_base : public dev_base<dev_axi_i2c_interface, dev_i2c_interface, dev_parent_type> {
     public:
         dev_i2c_base() = default;
-        dev_i2c_base(typename dev_base<dev_axi_i2c_interface, dev_i2c_interface, dev_parent_type>::axi_interface io,
-            typename dev_base<dev_axi_i2c_interface, dev_i2c_interface, dev_parent_type>::parent_functor fn,
-            i2c_address address, double frequency = double(400000), i2c_addressing addressing = i2c_addressing::_7bit)
+        dev_i2c_base(typename dev_base<dev_axi_i2c_interface, dev_i2c_interface, dev_parent_type>::axi_interface io, typename dev_base<dev_axi_i2c_interface, dev_i2c_interface, dev_parent_type>::parent_functor fn, i2c_address address, double frequency = double(400000), i2c_addressing addressing = i2c_addressing::_7bit)
             : dev_base<dev_axi_i2c_interface, dev_i2c_interface, dev_parent_type> { io, fn }
             , m_address { address }
             , m_frequency { frequency }
             , m_addressing { addressing }
         {
         }
-        dev_i2c_base(typename dev_base<dev_axi_i2c_interface, dev_i2c_interface, dev_parent_type>::axi_interface io,
-            i2c_address address, double frequency = double(400000), i2c_addressing addressing = i2c_addressing::_7bit)
+        dev_i2c_base(typename dev_base<dev_axi_i2c_interface, dev_i2c_interface, dev_parent_type>::axi_interface io, i2c_address address, double frequency = double(400000), i2c_addressing addressing = i2c_addressing::_7bit)
             : dev_base<dev_axi_i2c_interface, dev_i2c_interface, dev_parent_type> { io }
             , m_address { address }
             , m_frequency { frequency }
@@ -108,14 +106,12 @@ class dev_i2c_mux : public detail::dev_i2c_base<dev_i2c_mux>, public detail::dev
 
 public:
     dev_i2c_mux() = default;
-    dev_i2c_mux(axi_interface io, i2c_segment segment, i2c_address address, double frequency = double(400000),
-        i2c_addressing addressing = i2c_addressing::_7bit)
+    dev_i2c_mux(axi_interface io, i2c_segment segment, i2c_address address, double frequency = double(400000), i2c_addressing addressing = i2c_addressing::_7bit)
         : dev_i2c_base { io, address, frequency, addressing }
         , m_segment { segment }
     {
     }
-    dev_i2c_mux(axi_interface io, parent_functor fn, i2c_segment segment, i2c_address address, double frequency = double(400000),
-        i2c_addressing addressing = i2c_addressing::_7bit)
+    dev_i2c_mux(axi_interface io, parent_functor fn, i2c_segment segment, i2c_address address, double frequency = double(400000), i2c_addressing addressing = i2c_addressing::_7bit)
         : dev_i2c_base { io, fn, address, frequency, addressing }
         , m_segment { segment }
     {
@@ -141,13 +137,11 @@ public:
 class dev_i2c : public detail::dev_i2c_base<dev_i2c_mux>, public detail::dev_base_creator<dev_i2c> {
 public:
     dev_i2c() = default;
-    dev_i2c(axi_interface io, i2c_address address, double frequency = double(400000),
-        i2c_addressing addressing = i2c_addressing::_7bit)
+    dev_i2c(axi_interface io, i2c_address address, double frequency = double(400000), i2c_addressing addressing = i2c_addressing::_7bit)
         : dev_i2c_base { io, address, frequency, addressing }
     {
     }
-    dev_i2c(axi_interface io, parent_functor fn, i2c_address address, double frequency = double(400000),
-        i2c_addressing addressing = i2c_addressing::_7bit)
+    dev_i2c(axi_interface io, parent_functor fn, i2c_address address, double frequency = double(400000), i2c_addressing addressing = i2c_addressing::_7bit)
         : dev_i2c_base { io, fn, address, frequency, addressing }
     {
     }

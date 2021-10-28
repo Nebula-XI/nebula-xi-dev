@@ -24,7 +24,28 @@ SOFTWARE.
 
 */
 
-int main(int argc, char* argv[])
+#ifdef __linux__
+#define CTEST_SEGFAULT
+#endif
+#define CTEST_MAIN
+#define CTEST_COLOR_OK
+#include <ctest.h>
+
+#include "nebulaxi/dev/dev_spi.h"
+
+#ifndef NEBULAXI_DEV_TEST_VERBOSE
+#define NEBULAXI_DEV_TEST_VERBOSE false
+#endif
+
+using namespace nebulaxi;
+
+static constexpr bool g_verbose { NEBULAXI_DEV_TEST_VERBOSE };
+
+CTEST(nebulaxi_dev, spi)
 {
-    return 0;
+}
+
+int main(int argc, const char** argv)
+{
+    return ctest_main(argc, argv);
 }

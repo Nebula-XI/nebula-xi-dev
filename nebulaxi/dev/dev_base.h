@@ -56,7 +56,6 @@ auto make_dev(args_type&&... args)
 }
 
 namespace detail {
-
     template <typename dev_axi_interface_type>
     class dev_axi_base : public dev_axi_interface_type {
     public:
@@ -70,7 +69,6 @@ namespace detail {
     protected:
         uint64_t m_axi_offset {};
     };
-
     template <typename dev_axi_interface_type, typename dev_interface_type, typename dev_parent_type>
     class dev_base : public dev_interface_type {
     public:

@@ -26,6 +26,14 @@
 *.a
 *.lib
 
+# Visual Studio
+**/.vs
+**/.vscode
+**/Debug
+**/Release
+**/packages
+*.*user
+
 # Executables
 *.exe
 *.out
@@ -34,3 +42,6 @@
 # Output directories
 *.build
 *build
+
+# CMake
+CMakeUserPresets.json
